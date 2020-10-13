@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			d3.csv("../data/data.csv", function(error, data) {
 
   			//Get width of page
-  			var chartwidth = parseInt(d3.select("#chart").style("width"));
+  			var chartwidth = parseInt(d3.select(".speed-chart").style("width"));
 
   			// Set the margins
   			var margin = {top: 20, right: 20, bottom: 40, left: 20},
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
   			// Now to actually make the chart area
-  			var svg = d3.select("#chart").append("svg")
+  			var svg = d3.select(".speed-chart").append("svg")
   				.attr("class", "svgele")
   				.attr("id", "svgEle")
   				.attr("width", width + margin.left + margin.right)
@@ -104,9 +104,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   			  // Take each row and put the date column through the parsedate form we've defined above.
   			  data.forEach(function(d) {
-  				      d.date = parseDate(d.date);
+  				  d.date = parseDate(d.date);
   			  });
-
 
   			  // Building an object with all the data in it for each line
   			  projections = color.domain().map(function(name) {
@@ -168,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 				   //Initially set the lines to not show
 				   d3.selectAll(".line").style("opacity",0);
-           var chart = jQuery('#chart');
+           var chart = jQuery('.speed-chart');
            var barwidth = (chartwidth - 120) / 9;
 
            // 2007: 16 mbps

@@ -1,6 +1,5 @@
 jQuery(function($){
-
-
+  AOS.init();
 
 
 });

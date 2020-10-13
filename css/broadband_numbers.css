@@ -139,6 +139,21 @@ h2.section-title {
   color: #ccc;
 }
 
+.speed-chart .axis path,
+.speed-chart .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.speed-chart .line {
+  fill: none;
+}
+
+.speed-chart .x.axis path {
+  display: inline;
+}
+
 @media all and (min-width: 992px) and (max-width: 1199px) {
 
 }
