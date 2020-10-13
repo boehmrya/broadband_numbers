@@ -310,11 +310,13 @@ document.addEventListener('DOMContentLoaded', function() {
                   chartOn = true;
                 }
               }
+              /*
               else {
                 hideLines();
                 hideText();
                 chartOn = false;
               }
+              */
            });
 
 		   });
@@ -349,6 +351,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	  }
 
 
+    /*
     // hide the animating lines
     function hideLines() {
       d3.selectAll("svg.svgele .line")
@@ -363,6 +366,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function hideText() {
       d3.selectAll("svg.svgele text.speed").style("opacity", 0);
     }
+    */
 
 
     // show the text labels above the lines

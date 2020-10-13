@@ -139,6 +139,10 @@ h2.section-title {
   color: #ccc;
 }
 
+.speed-chart {
+  margin-top: 22.5px;
+}
+
 .speed-chart .axis path,
 .speed-chart .axis line {
   fill: none;
