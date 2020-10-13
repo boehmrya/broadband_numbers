@@ -14,7 +14,7 @@ var isInViewport = function(el) {
 var chartOn = false;
 
 document.addEventListener('DOMContentLoaded', function() {
-    if (jQuery('#speed-section #chart').length) {
+    if (jQuery('.chart-section .speed-chart').length) {
       makeChart();
     }
 }, false);

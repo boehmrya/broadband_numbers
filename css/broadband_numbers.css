@@ -3,6 +3,7 @@
 body {
   /*background: #F5F5F8;*/
   background: #fff;
+  color: #343F49;
 }
 
 path.state {
@@ -49,7 +50,7 @@ h2.section-title {
 }
 
 .intro {
-  margin-bottom: 22.5px;
+  margin-bottom: 45px;
 }
 
 .wrap {
@@ -62,7 +63,8 @@ h2.section-title {
   padding-top: 45px;
 }
 
-.wrap::after {
+.wrap::after,
+.stats-section::after {
   content: "";
   clear: both;
   display: table;
@@ -77,9 +79,37 @@ h2.section-title {
   margin-bottom: 0;
 }
 
+.stat-col {
+  float: left;
+  width: 48%;
+  text-align: center;
+}
+
+.stat-col.one {
+  margin-right: 4%;
+}
+
+.stat-num {
+  color: #E71B4F;
+  font-size: 4rem;
+  line-height: 3rem;
+  font-weight: bold;
+}
+
+.stat-num .sign {
+  font-size: 2rem;
+  line-height: 2rem;
+  vertical-align: top;
+}
+
+.stat-num .suffix {
+  margin-left: 10px;
+}
+
 @media all and (min-width: 992px) and (max-width: 1199px) {
 
 }
+
 @media all and (max-width: 1199px) {
 
 }
@@ -88,5 +118,5 @@ h2.section-title {
 
 }
 @media all and (max-width: 767px) {
-  .
+
 }
