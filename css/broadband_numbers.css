@@ -89,6 +89,11 @@ h2.section-title {
   margin-right: 4%;
 }
 
+.stat-wrap {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
 .stat-num {
   color: #E71B4F;
   font-size: 4rem;
@@ -104,6 +109,34 @@ h2.section-title {
 
 .stat-num .suffix {
   margin-left: 10px;
+}
+
+.stat-label {
+  color: #5AC9E7;
+  font-weight: bold;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  margin-top: 11.25px;
+}
+
+.stat-text {
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+  margin-top: 11.25px;
+}
+
+.stat-source {
+  margin-top: 11.25px;
+  font-size: 14px;
+  color: #666;
+}
+
+.stat-source a {
+  color: #666;
+}
+
+.stat-source a:hover {
+  color: #ccc;
 }
 
 @media all and (min-width: 992px) and (max-width: 1199px) {
