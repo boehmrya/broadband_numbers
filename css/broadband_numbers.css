@@ -144,17 +144,25 @@ h2.section-title {
 }
 
 .speed-chart .axis path,
-.speed-chart .axis line {
+.speed-chart .axis line,
+.customers-chart .axis path,
+.customers-chart .axis line,
+.adoption-chart .axis path,
+.adoption-chart .axis line  {
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
 }
 
-.speed-chart .line {
+.speed-chart .line,
+.customers-chart .line,
+.adoption-chart .line {
   fill: none;
 }
 
-.speed-chart .x.axis path {
+.speed-chart .x.axis path,
+.customers-chart .x.axis path,
+.adoption-chart .x.axis path {
   display: inline;
 }
 

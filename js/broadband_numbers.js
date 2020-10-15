@@ -180,7 +180,6 @@ jQuery(function($){
 
     xAxis = d3.svg.axis()
         .scale(x)
-        .tickSize(10,0)
         .orient("bottom");
 
     yAxis = d3.svg.axis()
@@ -294,7 +293,7 @@ jQuery(function($){
 
     xAxis = d3.svg.axis()
         .scale(x)
-        .tickSize(10,0)
+        .tickSize([30,30])
         .orient("bottom");
 
     yAxis = d3.svg.axis()
@@ -304,20 +303,10 @@ jQuery(function($){
             return d;
           }
           else {
-            return d + "M";
+            return d + "B";
           }
         })
         .orient("left");
-
-    initialArea = d3.svg.area()
-        .x(function(d) { return x(d.year); })
-        .y0(0)
-        .y1(height);
-
-    area = d3.svg.area()
-        .x(function(d) { return x(d.year); })
-        .y0(height)
-        .y1(function(d) { return y(d.customers); });
 
     svg = d3.select(".customers-chart").append("svg")
         .attr("preserveAspectRatio", "xMinYMin meet")
