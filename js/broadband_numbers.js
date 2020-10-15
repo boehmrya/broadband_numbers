@@ -49,7 +49,6 @@ jQuery(function($){
     var data, margin, width, height, viewBox, parseDate, x, y,
         tickLabels, xAxis, yAxis, initialArea, area, svg;
 
-
     // broadband adoption data
     data = [{"year":"2000", "percent": 3},
                 {"year":"2005", "percent": 32},
@@ -131,16 +130,14 @@ jQuery(function($){
         .attr("fill", "#E71B4F")
         .attr("d", initialArea) // initial state (line at the bottom)
         .transition()
-        .duration(3500)
-        .ease("elastic-in-out")
+        .duration(2500)
+        .ease("circle")
         .attr("d", area);
-
   }
 
 
 
   // broadband customers chart
-  // broadband adoption chart
   function customersChart() {
     var data, margin, width, height, viewBox, parseDate, x, y,
         tickLabels, xAxis, yAxis, initialArea, area, svg;
@@ -176,7 +173,6 @@ jQuery(function($){
         .range([height, 0]);
 
     xAxis = d3.svg.axis()
-        .ticks(5)
         .scale(x)
         .orient("bottom");
 
@@ -228,8 +224,8 @@ jQuery(function($){
         .attr("fill", "#5AC9E7")
         .attr("d", initialArea) // initial state (line at the bottom)
         .transition()
-        .duration(3500)
-        .ease("elastic")
+        .duration(1500)
+        .ease("linear")
         .attr("d", area);
   }
 
