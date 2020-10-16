@@ -143,7 +143,7 @@ jQuery(function($){
         .attr("y", 6)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("Percent");
+        .text("Percent of Households");
     svg.append("path")
         .datum(data)
         .attr("class", "area")
@@ -358,7 +358,17 @@ jQuery(function($){
   bar = svg.selectAll(".chart-bar")
       .data(data)
     .enter().append("rect")
-      .attr("class", "chart-bar")
+      .attr("class", function(d) {
+          var year = d.year.getFullYear();
+          if ((year == 2002) || (year == 2007) || (year == 2012)) {
+            return 'chart-bar-blue';
+          }
+          else if (year == 2018) {
+            return 'chart-bar-red';
+          }
+          return 'chart-bar';
+        }
+      )
       .attr("x", function(d) { return x(d.year); })
       .attr("y", height)
       .attr("width", x.rangeBand())

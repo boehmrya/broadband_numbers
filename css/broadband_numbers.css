@@ -167,6 +167,14 @@ h2.section-title {
   fill: #ccc;
 }
 
+.infrastructure-chart .chart-bar-blue {
+  fill: #5AC9E7;
+}
+
+.infrastructure-chart .chart-bar-red {
+  fill: #E71B4F;
+}
+
 .speed-chart .x.axis path,
 .customers-chart .x.axis path,
 .adoption-chart .x.axis path,
