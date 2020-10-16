@@ -163,6 +163,10 @@ h2.section-title {
   fill: none;
 }
 
+.infrastructure-chart .chart-bar {
+  fill: #ccc;
+}
+
 .speed-chart .x.axis path,
 .customers-chart .x.axis path,
 .adoption-chart .x.axis path,

@@ -297,20 +297,15 @@ jQuery(function($){
 
     parseDate = d3.time.format("%Y").parse;
 
-    /*
-    x = d3.time.scale()
-        .range([0, width]);
-        */
-
     x = d3.scale.ordinal()
-        .domain(d3.range(data.length))
-        .rangeRoundBands([0, width], 0.05);
+          .rangeRoundBands([0, width], .05);
 
     y = d3.scale.linear()
         .range([height, 0]);
 
     xAxis = d3.svg.axis()
         .scale(x)
+        .tickFormat(d3.time.format("%Y"))
         .orient("bottom");
 
     yAxis = d3.svg.axis()
@@ -331,13 +326,11 @@ jQuery(function($){
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    /*
     data.forEach(function(d) {
       d.year = parseDate(d.year);
     });
-    */
 
-    x.domain(d3.max(data));
+    x.domain(data.map(function(d) { return d.year; }));
     y.domain([0,300]);
 
     // add axes and labels
@@ -372,7 +365,7 @@ jQuery(function($){
       .attr("height", 0);
 
   bar.transition()
-      .duration(1500)
+      .duration(3000)
       .ease("elastic")
       .attr("y", function(d) { return y(d.amount); })
       .attr("height", function(d) { return height - y(d.amount); });
