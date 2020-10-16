@@ -2,46 +2,60 @@ jQuery(function($){
   // initialize animations
   AOS.init();
 
-  // flags for whether charts have appeared
-  var adoptChart = false
-  var adoptChartEl = $('.adoption-chart');
+  // initialize d3 charts
+  buildCharts();
 
-  var custChart = false
-  var custChartEl = $('.customers-chart');
+  function buildCharts() {
+    // flags for whether charts have appeared
+    var adoptChart = false;
+    var adoptChartEl = $('.adoption-chart');
 
-  // check if element is in the viewport
-  var isInViewport = function(el) {
-    var elementTop = el.offset().top;
-    var elementBottom = elementTop + el.outerHeight();
-    var viewportTop = jQuery(window).scrollTop();
-    var viewportBottom = viewportTop + jQuery(window).height();
-    return elementBottom > viewportTop && elementTop < viewportBottom;
-  };
+    var custChart = false;
+    var custChartEl = $('.customers-chart');
 
-  $(window).on('load scroll', function() {
-    var throttled = false;
-    var delay = 250;
+    var infraChart = false;
+    var infraChartEl = $('.infrastructure-chart');
 
-    // only run if we're not throttled
-    if (!throttled) {
-      if (!adoptChart && isInViewport(adoptChartEl)) {
-        adoptionChart();
-        adoptChart = true;
+    // check if element is in the viewport
+    var isInViewport = function(el) {
+      var elementTop = el.offset().top;
+      var elementBottom = elementTop + el.outerHeight();
+      var viewportTop = jQuery(window).scrollTop();
+      var viewportBottom = viewportTop + jQuery(window).height();
+      return elementBottom > viewportTop && elementTop < viewportBottom;
+    };
+
+    $(window).on('load scroll', function() {
+      var throttled = false;
+      var delay = 250;
+
+      // only run if we're not throttled
+      if (!throttled) {
+        if (!adoptChart && isInViewport(adoptChartEl)) {
+          adoptionChart();
+          adoptChart = true;
+        }
+
+        if (!custChart && isInViewport(custChartEl)) {
+          customersChart();
+          custChart = true;
+        }
+
+        if (!infraChart && isInViewport(infraChartEl)) {
+          infrastructureChart();
+          infraChart = true;
+        }
+
+        // we're throttled!
+        throttled = true;
+
+        // set a timeout to un-throttle
+        setTimeout(function() {
+          throttled = false;
+        }, delay);
       }
-
-      if (!custChart && isInViewport(custChartEl)) {
-        customersChart();
-        custChart = true;
-      }
-
-      // we're throttled!
-      throttled = true;
-      // set a timeout to un-throttle
-      setTimeout(function() {
-        throttled = false;
-      }, delay);
-    }
-  });
+    });
+  }
 
 
   // broadband adoption chart
@@ -51,10 +65,10 @@ jQuery(function($){
 
     // broadband adoption data
     data = [{"year":"2000", "percent": 3},
-                {"year":"2005", "percent": 32},
-                {"year":"2010", "percent": 62},
-                {"year":"2015", "percent": 68},
-                {"year":"2020", "percent": 81}];
+            {"year":"2005", "percent": 32},
+            {"year":"2010", "percent": 62},
+            {"year":"2015", "percent": 68},
+            {"year":"2020", "percent": 81}];
 
     // dimensions
     margin = {top: 20, right: 20, bottom: 60, left: 50};
@@ -210,14 +224,12 @@ jQuery(function($){
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-
-    // Take each row and put the date column through the parsedate form we've defined above.
     data.forEach(function(d) {
       d.year = parseDate(d.year);
     });
 
     x.domain(d3.extent(data, function(d) { return d.year; }));
-    y.domain([0,80]);
+    y.domain([0,70]);
 
     svg.append("g")
         .attr("class", "x axis")
@@ -251,9 +263,9 @@ jQuery(function($){
 
 
   // infrastructure investment chart
-  function infraChart() {
+  function infrastructureChart() {
     var data, margin, width, height, viewBox, parseDate, x, y,
-        tickLabels, xAxis, yAxis, initialArea, area, svg;
+        tickLabels, xAxis, yAxis, initialArea, area, svg, bar;
 
     // broadband adoption data
     data = [{"year":"1999", "amount": 30},
@@ -285,15 +297,20 @@ jQuery(function($){
 
     parseDate = d3.time.format("%Y").parse;
 
+    /*
     x = d3.time.scale()
         .range([0, width]);
+        */
+
+    x = d3.scale.ordinal()
+        .domain(d3.range(data.length))
+        .rangeRoundBands([0, width], 0.05);
 
     y = d3.scale.linear()
         .range([height, 0]);
 
     xAxis = d3.svg.axis()
         .scale(x)
-        .tickSize([30,30])
         .orient("bottom");
 
     yAxis = d3.svg.axis()
@@ -308,21 +325,22 @@ jQuery(function($){
         })
         .orient("left");
 
-    svg = d3.select(".customers-chart").append("svg")
+    svg = d3.select(".infrastructure-chart").append("svg")
         .attr("preserveAspectRatio", "xMinYMin meet")
         .attr("viewBox", viewBox)
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-
-    // Take each row and put the date column through the parsedate form we've defined above.
+    /*
     data.forEach(function(d) {
       d.year = parseDate(d.year);
     });
+    */
 
-    x.domain(d3.extent(data, function(d) { return d.year; }));
-    y.domain([0,80]);
+    x.domain(d3.max(data));
+    y.domain([0,300]);
 
+    // add axes and labels
     svg.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
@@ -341,19 +359,25 @@ jQuery(function($){
         .attr("y", 6)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("Number of Customers");
-    svg.append("path")
-        .datum(data)
-        .attr("class", "area")
-        .attr("fill", "#5AC9E7")
-        .attr("d", initialArea) // initial state (line at the bottom)
-        .transition()
-        .duration(1500)
-        .ease("linear")
-        .attr("d", area);
+        .text("Amount (Dollars)");
+
+    // Bars
+  bar = svg.selectAll(".chart-bar")
+      .data(data)
+    .enter().append("rect")
+      .attr("class", "chart-bar")
+      .attr("x", function(d) { return x(d.year); })
+      .attr("y", height)
+      .attr("width", x.rangeBand())
+      .attr("height", 0);
+
+  bar.transition()
+      .duration(1500)
+      .ease("elastic")
+      .attr("y", function(d) { return y(d.amount); })
+      .attr("height", function(d) { return height - y(d.amount); });
+
   }
-
-
 
 
 });
