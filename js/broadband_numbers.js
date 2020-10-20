@@ -380,6 +380,19 @@ jQuery(function($){
       .attr("y", function(d) { return y(d.amount); })
       .attr("height", function(d) { return height - y(d.amount); });
 
+
+  svg.selectAll(".text-label")
+    .data(data)
+    .enter()
+    .append("text")
+    .attr("class" , "text-label")
+    .text(function(d) { return d.amount; })
+    .attr("x", function(d) { return x(d.year); })
+    .attr("y", function(d){
+      return height - y(d) + 14;
+    })
+    .attr("text-anchor", "middle");
+
   }
 
 

@@ -182,6 +182,10 @@ h2.section-title {
   display: inline;
 }
 
+.blue-text {
+  fill: #5AC9E7;
+}
+
 @media all and (min-width: 992px) and (max-width: 1199px) {
   .wrap {
     width: 970px;
