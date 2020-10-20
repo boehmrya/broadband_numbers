@@ -167,11 +167,11 @@ h2.section-title {
   fill: #ccc;
 }
 
-.infrastructure-chart .chart-bar-blue {
+.infrastructure-chart .chart-bar.blue {
   fill: #5AC9E7;
 }
 
-.infrastructure-chart .chart-bar-red {
+.infrastructure-chart .chart-bar.red {
   fill: #E71B4F;
 }
 
@@ -182,8 +182,22 @@ h2.section-title {
   display: inline;
 }
 
-.blue-text {
+.text-label {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.text-label.hide {
+  display: none;
+  visibility: hidden;
+}
+
+.text-label.blue {
   fill: #5AC9E7;
+}
+
+.text-label.red {
+  fill: #E71B4F;
 }
 
 @media all and (min-width: 992px) and (max-width: 1199px) {

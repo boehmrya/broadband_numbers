@@ -290,7 +290,7 @@ jQuery(function($){
             {"year":"2018", "amount": 290}];
 
     // dimensions
-    margin = {top: 20, right: 20, bottom: 60, left: 50};
+    margin = {top: 60, right: 20, bottom: 60, left: 50};
     width = 1140 - margin.left - margin.right;
     height = 500 - margin.top - margin.bottom;
     viewBox = "0 0 1140 500";
@@ -298,7 +298,7 @@ jQuery(function($){
     parseDate = d3.time.format("%Y").parse;
 
     x = d3.scale.ordinal()
-          .rangeRoundBands([0, width], .05);
+        .rangeRoundBands([0, width], .05);
 
     y = d3.scale.linear()
         .range([height, 0]);
@@ -361,10 +361,10 @@ jQuery(function($){
       .attr("class", function(d) {
           var year = d.year.getFullYear();
           if ((year == 2002) || (year == 2007) || (year == 2012)) {
-            return 'chart-bar-blue';
+            return 'chart-bar blue';
           }
           else if (year == 2018) {
-            return 'chart-bar-red';
+            return 'chart-bar red';
           }
           return 'chart-bar';
         }
@@ -380,16 +380,43 @@ jQuery(function($){
       .attr("y", function(d) { return y(d.amount); })
       .attr("height", function(d) { return height - y(d.amount); });
 
+  svg.selectAll(".text-group")
+    .data(data)
+    .enter()
+    .append("g")
+    .attr("class", function(d) {
+        var year = d.year.getFullYear();
+        if ((year == 2002) || (year == 2007) || (year == 2012)) {
+          return 'text-group blue';
+        }
+        else if (year == 2018) {
+          return 'text-group red';
+        }
+        return 'text-group hide';
+    })
+    .attr("x", function(d) { return x(d.year) + (x.rangeBand() / 2) })
+    .attr("y", function(d){
+      return y(d.amount) - 60;
+    });
 
   svg.selectAll(".text-label")
     .data(data)
     .enter()
     .append("text")
-    .attr("class" , "text-label")
+    .attr("class", function(d) {
+        var year = d.year.getFullYear();
+        if ((year == 2002) || (year == 2007) || (year == 2012)) {
+          return 'text-label blue';
+        }
+        else if (year == 2018) {
+          return 'text-label red';
+        }
+        return 'text-label hide';
+    })
     .text(function(d) { return d.amount; })
-    .attr("x", function(d) { return x(d.year); })
+    .attr("x", function(d) { return x(d.year) + (x.rangeBand() / 2) })
     .attr("y", function(d){
-      return height - y(d) + 14;
+      return y(d.amount) - 20;
     })
     .attr("text-anchor", "middle");
 
