@@ -377,8 +377,22 @@ jQuery(function($){
   bar.transition()
       .duration(3000)
       .ease("elastic")
+      .delay(function(d, i) {
+        return i / data.length * 1000;  // Dynamic delay (each item delays a little longer)
+      })
       .attr("y", function(d) { return y(d.amount); })
-      .attr("height", function(d) { return height - y(d.amount); });
+      .attr("height", function(d) { return height - y(d.amount); })
+      .each("end", function() {
+        d3.selectAll(".text-group.reveal").attr("class", function(d) {
+            var year = d.year.getFullYear();
+            if ((year == 2002) || (year == 2007) || (year == 2012)) {
+              return 'text-group reveal animated blue';
+            }
+            else if (year == 2018) {
+              return 'text-group reveal animated red';
+            }
+        });
+      });
 
   labelGroup = svg.selectAll(".text-group")
     .data(data)
@@ -387,10 +401,10 @@ jQuery(function($){
     .attr("class", function(d) {
         var year = d.year.getFullYear();
         if ((year == 2002) || (year == 2007) || (year == 2012)) {
-          return 'text-group blue';
+          return 'text-group reveal blue';
         }
         else if (year == 2018) {
-          return 'text-group red';
+          return 'text-group reveal red';
         }
         return 'text-group hide';
     })

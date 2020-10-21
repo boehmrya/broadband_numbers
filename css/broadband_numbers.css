@@ -189,6 +189,24 @@ h2.section-title {
   visibility: hidden;
 }
 
+.text-group.reveal {
+  opacity: 0;
+  transition: all 0.5s;
+  transition-timing-function: ease;
+}
+
+.text-group.reveal.animated {
+  opacity: 1;
+}
+
+.text-group.blue circle {
+  fill: #5AC9E7;
+}
+
+.text-group.red circle {
+  fill: #E71B4F;
+}
+
 .text-stat {
   fill: #fff;
   font-size: 24px;
@@ -205,14 +223,6 @@ h2.section-title {
   fill: #fff;
   font-size: 18px;
   font-weight: bold;
-}
-
-.text-group.blue circle {
-  fill: #5AC9E7;
-}
-
-.text-group.red circle {
-  fill: #E71B4F;
 }
 
 @media all and (min-width: 992px) and (max-width: 1199px) {
