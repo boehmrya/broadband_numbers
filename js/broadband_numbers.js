@@ -16,6 +16,9 @@ jQuery(function($){
     var infraChart = false;
     var infraChartEl = $('.infrastructure-chart');
 
+    var costChart = false;
+    var costChartEl = $('.cost-chart');
+
     // check if element is in the viewport
     var isInViewport = function(el) {
       var elementTop = el.offset().top;
@@ -44,6 +47,11 @@ jQuery(function($){
         if (!infraChart && isInViewport(infraChartEl)) {
           infrastructureChart();
           infraChart = true;
+        }
+
+        if (!costChart && isInViewport(costChartEl)) {
+          costChart();
+          costChart = true;
         }
 
         // we're throttled!
@@ -448,6 +456,99 @@ jQuery(function($){
       .attr("y", function(d) { return parseInt(d3.select(this.parentNode).attr('y')) + 17; } )
       .attr("class", "text-label")
       .attr("text-anchor", "middle");
+
+  }
+
+
+  // cost chart
+  function costChart() {
+    var data, margin, width, height, viewBox, parseDate, x, y,
+        tickLabels, xAxis, yAxis, initialArea, area, svg, bar;
+
+    // broadband adoption data
+    data = [{"year":"2000", "cost": 28.13},
+            {"year":"2020", "cost": 0.64}];
+
+    // dimensions
+    margin = {top: 20, right: 20, bottom: 60, left: 50};
+    width = 1140 - margin.left - margin.right;
+    height = 500 - margin.top - margin.bottom;
+    viewBox = "0 0 1140 500";
+
+    parseDate = d3.time.format("%Y").parse;
+
+    x = d3.scale.ordinal()
+        .rangeRoundBands([0, width], .05);
+
+    y = d3.scale.linear()
+        .range([height, 0]);
+
+    xAxis = d3.svg.axis()
+        .scale(x)
+        .tickFormat(d3.time.format("%Y"))
+        .orient("bottom");
+
+    yAxis = d3.svg.axis()
+        .scale(y)
+        .tickFormat(function(d,i) {
+          if (d == 0) {
+            return d;
+          }
+          else {
+            return d + "B";
+          }
+        })
+        .orient("left");
+
+    svg = d3.select(".cost-chart").append("svg")
+        .attr("preserveAspectRatio", "xMinYMin meet")
+        .attr("viewBox", viewBox)
+      .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    data.forEach(function(d) {
+      d.year = parseDate(d.year);
+    });
+
+    x.domain(data.map(function(d) { return d.year; }));
+    y.domain([0,30]);
+
+    // add axes and labels
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+      .append("text")
+        .attr("y", 40)
+        .attr("x", 540)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        .text("Year");
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+      .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        .text("Amount (Dollars)");
+
+    // Bars
+  bar = svg.selectAll(".cost-chart-bar")
+        .data(data)
+        .enter().append("rect")
+        .attr("class", "cost-chart-bar")
+        .attr("x", function(d) { return x(d.year); })
+        .attr("y", height)
+        .attr("width", x.rangeBand())
+        .attr("height", 0);
+
+  bar.transition()
+      .duration(3000)
+      .ease("linear")
+      .attr("y", function(d) { return y(d.cost); })
+      .attr("height", function(d) { return height - y(d.cost); });
 
   }
 
