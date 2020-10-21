@@ -356,23 +356,23 @@ jQuery(function($){
 
     // Bars
   bar = svg.selectAll(".chart-bar")
-      .data(data)
-    .enter().append("rect")
-      .attr("class", function(d) {
-          var year = d.year.getFullYear();
-          if ((year == 2002) || (year == 2007) || (year == 2012)) {
-            return 'chart-bar blue';
+        .data(data)
+        .enter().append("rect")
+        .attr("class", function(d) {
+            var year = d.year.getFullYear();
+            if ((year == 2002) || (year == 2007) || (year == 2012)) {
+              return 'chart-bar blue';
+            }
+            else if (year == 2018) {
+              return 'chart-bar red';
+            }
+            return 'chart-bar';
           }
-          else if (year == 2018) {
-            return 'chart-bar red';
-          }
-          return 'chart-bar';
-        }
-      )
-      .attr("x", function(d) { return x(d.year); })
-      .attr("y", height)
-      .attr("width", x.rangeBand())
-      .attr("height", 0);
+        )
+        .attr("x", function(d) { return x(d.year); })
+        .attr("y", height)
+        .attr("width", x.rangeBand())
+        .attr("height", 0);
 
   bar.transition()
       .duration(3000)
@@ -380,7 +380,7 @@ jQuery(function($){
       .attr("y", function(d) { return y(d.amount); })
       .attr("height", function(d) { return height - y(d.amount); });
 
-  svg.selectAll(".text-group")
+  labelGroup = svg.selectAll(".text-group")
     .data(data)
     .enter()
     .append("g")
@@ -394,11 +394,27 @@ jQuery(function($){
         }
         return 'text-group hide';
     })
+    .text(function(d) { return d.amount; })
     .attr("x", function(d) { return x(d.year) + (x.rangeBand() / 2) })
     .attr("y", function(d){
       return y(d.amount) - 60;
     });
 
+  /*Create the circle for each block */
+  var circle = labelGroup.append("circle")
+      .attr("r", function(d) { return 40; } )
+      .attr("cx", function(d) { return d3.select(this.parentNode).attr('x'); })
+      .attr("cy", function(d) { return d3.select(this.parentNode).attr('y'); } )
+      .attr("class","text-circle");
+
+  var textLabel = labelGroup.append("text")
+      .text(function(d) { return d.amount; })
+      .attr("x", function(d) { return d3.select(this.parentNode).attr('x'); })
+      .attr("y", function(d) { return d3.select(this.parentNode).attr('y'); } )
+      .attr("class", "text-label")
+      .attr("text-anchor", "middle");
+
+      /*
   svg.selectAll(".text-label")
     .data(data)
     .enter()
@@ -419,6 +435,7 @@ jQuery(function($){
       return y(d.amount) - 20;
     })
     .attr("text-anchor", "middle");
+    */
 
   }
 

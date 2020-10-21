@@ -187,16 +187,22 @@ h2.section-title {
   font-weight: bold;
 }
 
-.text-label.hide {
+.text-group.hide,
+.text-group.hide circle,
+.text-group.hide .text-label {
   display: none;
   visibility: hidden;
 }
 
-.text-label.blue {
+.text-label {
+  fill: #fff;
+}
+
+.text-group.blue circle {
   fill: #5AC9E7;
 }
 
-.text-label.red {
+.text-group.red circle {
   fill: #E71B4F;
 }
 
