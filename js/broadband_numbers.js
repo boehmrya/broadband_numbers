@@ -290,7 +290,7 @@ jQuery(function($){
             {"year":"2018", "amount": 290}];
 
     // dimensions
-    margin = {top: 60, right: 20, bottom: 60, left: 50};
+    margin = {top: 120, right: 20, bottom: 60, left: 50};
     width = 1140 - margin.left - margin.right;
     height = 500 - margin.top - margin.bottom;
     viewBox = "0 0 1140 500";
@@ -394,48 +394,46 @@ jQuery(function($){
         }
         return 'text-group hide';
     })
-    .text(function(d) { return d.amount; })
     .attr("x", function(d) { return x(d.year) + (x.rangeBand() / 2) })
     .attr("y", function(d){
-      return y(d.amount) - 60;
+      return y(d.amount) - 80;
     });
 
   /*Create the circle for each block */
   var circle = labelGroup.append("circle")
-      .attr("r", function(d) { return 40; } )
+      .attr("r", function(d) { return 50; } )
       .attr("cx", function(d) { return d3.select(this.parentNode).attr('x'); })
       .attr("cy", function(d) { return d3.select(this.parentNode).attr('y'); } )
       .attr("class","text-circle");
 
-  var textLabel = labelGroup.append("text")
-      .text(function(d) { return d.amount; })
+  var textStat = labelGroup.append("text")
       .attr("x", function(d) { return d3.select(this.parentNode).attr('x'); })
-      .attr("y", function(d) { return d3.select(this.parentNode).attr('y'); } )
-      .attr("class", "text-label")
+      .attr("y", function(d) { return parseInt(d3.select(this.parentNode).attr('y')) - 3; } )
+      .attr("class", "text-stat")
       .attr("text-anchor", "middle");
 
-      /*
-  svg.selectAll(".text-label")
-    .data(data)
-    .enter()
-    .append("text")
-    .attr("class", function(d) {
-        var year = d.year.getFullYear();
-        if ((year == 2002) || (year == 2007) || (year == 2012)) {
-          return 'text-label blue';
-        }
-        else if (year == 2018) {
-          return 'text-label red';
-        }
-        return 'text-label hide';
-    })
-    .text(function(d) { return d.amount; })
-    .attr("x", function(d) { return x(d.year) + (x.rangeBand() / 2) })
-    .attr("y", function(d){
-      return y(d.amount) - 20;
-    })
-    .attr("text-anchor", "middle");
-    */
+  textStat.append("tspan")
+      .text("$")
+      .attr("class", "text-stat-prefix")
+      .attr("text-anchor", "middle");
+
+  textStat.append("tspan")
+      .text(function(d) { return d.amount; })
+      .attr("class", "text-stat-number")
+      .attr("text-anchor", "middle");
+
+  textStat.append("tspan")
+      .text("B")
+      .attr("class", "text-stat-suffix")
+      .attr("dx", 2)
+      .attr("text-anchor", "middle");
+
+  var textLabel = labelGroup.append("text")
+      .text("Invested")
+      .attr("x", function(d) { return d3.select(this.parentNode).attr('x'); })
+      .attr("y", function(d) { return parseInt(d3.select(this.parentNode).attr('y')) + 17; } )
+      .attr("class", "text-label")
+      .attr("text-anchor", "middle");
 
   }
 
