@@ -463,14 +463,14 @@ jQuery(function($){
   // cost chart
   function costReduceChart() {
     var data, margin, width, height, viewBox, parseDate, x, y,
-        tickLabels, xAxis, svg, bar;
+        maxCost, xAxis, svg, bar;
 
     // broadband adoption data
     data = [{"year":"2000", "cost": 28.13},
             {"year":"2020", "cost": 0.64}];
 
     // dimensions
-    margin = {top: 0, right: 0, bottom: 40, left: 0};
+    margin = {top: 0, right: 0, bottom: 30, left: 0};
     width = 690 - margin.left - margin.right;
     height = 500 - margin.top - margin.bottom;
     viewBox = "0 0 690 500";
@@ -498,8 +498,10 @@ jQuery(function($){
       d.year = parseDate(d.year);
     });
 
+    maxCost = d3.max(data, function(d) { return d.cost; });
+
     x.domain(data.map(function(d) { return d.year; }));
-    y.domain([0,30]);
+    y.domain([0, maxCost]);
 
     // add axes and labels
     svg.append("g")
@@ -521,9 +523,45 @@ jQuery(function($){
       .duration(2000)
       .ease("quad-in-out")
       .attr("y", function(d) { return y(d.cost); })
-      .attr("height", function(d) { return height - y(d.cost); });
+      .attr("height", function(d) { return height - y(d.cost); })
+      .each("end", function() {
+        d3.selectAll(".cost-chart-bar-label").attr("class", function(d) {
+          var year = d.year.getFullYear();
+          if (year == 2000) {
+            return 'cost-chart-bar-label white reveal';
+          }
+          return 'cost-chart-bar-label red reveal';
+        })
+      });
 
-  $('.shape-wrap .box').addClass('full');
+  svg.selectAll(".cost-chart-bar-label")
+    .data(data)
+    .enter()
+    .append("text")
+    .attr("class", function(d) {
+        var year = d.year.getFullYear();
+        if (year == 2000) {
+          return 'cost-chart-bar-label white';
+        }
+        return 'cost-chart-bar-label red';
+    })
+    .attr("x", function(d) { return x(d.year) + (x.rangeBand() / 2) })
+    .attr("y", function(d){ return height - 100; })
+    .text(function(d) { return '$' + d.cost; })
+    .attr("text-anchor", "middle");
+
+    $('.shape-wrap .box').addClass('full');
+
+    $('.cost-percent-num .num').each(function () {
+      var $this = $(this);
+      $({ Counter: 0 }).animate({ Counter: $this.text() }, {
+        duration: 2000,
+        easing: 'swing',
+        step: function () {
+          $this.text(Math.ceil(this.Counter));
+        }
+      });
+    });
 
   }
 

@@ -234,6 +234,53 @@ h2.section-title {
   font-weight: bold;
 }
 
+.cost-chart-bar-label {
+  font-size: 3.5rem;
+  line-height: 3.5rem;
+  font-weight: bold;
+  opacity: 0;
+  transition: all 0.5s;
+  transition-timing-function: ease;
+}
+
+.cost-chart-bar-label.reveal {
+  opacity: 1;
+}
+
+.cost-chart-bar-label.white {
+  fill: #fff;
+}
+
+.cost-chart-bar-label.red {
+  fill: #E71B4F;
+}
+
+.shape-wrap .cost-arrow {
+  position: relative;
+}
+
+.shape-wrap .cost-percent-wrap {
+  position: absolute;
+  bottom: 70px;
+  left: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.shape-wrap .cost-percent-num {
+  font-size: 3.5rem;
+  line-height: 3.5rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.shape-wrap .cost-percent-label {
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+}
+
 .shape-wrap .box {
   width: 300px;
   height: 0px;
@@ -242,7 +289,7 @@ h2.section-title {
 }
 
 .shape-wrap .box.full {
-  height: 350px;
+  height: 325px;
 }
 
 .shape-wrap .down-arrow {
@@ -263,7 +310,7 @@ h2.section-title {
 
   .section.cost .shape-wrap {
     float: left;
-    width: 360px;
+    width: 300px;
   }
 }
 
@@ -274,9 +321,7 @@ h2.section-title {
 }
 
 @media all and (max-width: 1199px) {
-  body {
-    background: #F5F5F8;
-  }
+
 }
 
 @media all and (max-width: 991px) {
