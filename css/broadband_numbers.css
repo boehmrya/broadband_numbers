@@ -150,7 +150,9 @@ h2.section-title {
 .adoption-chart .axis path,
 .adoption-chart .axis line,
 .infrastructure-chart .axis path,
-.infrastructure-chart .axis line  {
+.infrastructure-chart .axis line,
+.cost-chart .axis path,
+.cost-chart .axis line   {
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
@@ -159,7 +161,8 @@ h2.section-title {
 .speed-chart .line,
 .customers-chart .line,
 .adoption-chart .line,
-.infrastructure-chart .line {
+.infrastructure-chart .line,
+.cost-chart .line {
   fill: none;
 }
 
@@ -175,10 +178,15 @@ h2.section-title {
   fill: #E71B4F;
 }
 
+.cost-chart .cost-chart-bar {
+  fill: #E71B4F;
+}
+
 .speed-chart .x.axis path,
 .customers-chart .x.axis path,
 .adoption-chart .x.axis path,
-.infrastructure-chart .x.axis path {
+.infrastructure-chart .x.axis path,
+.cost-chart .x.axis path {
   display: inline;
 }
 

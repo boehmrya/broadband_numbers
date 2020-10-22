@@ -50,7 +50,7 @@ jQuery(function($){
         }
 
         if (!costChart && isInViewport(costChartEl)) {
-          costChart();
+          costReduceChart();
           costChart = true;
         }
 
@@ -273,7 +273,7 @@ jQuery(function($){
   // infrastructure investment chart
   function infrastructureChart() {
     var data, margin, width, height, viewBox, parseDate, x, y,
-        tickLabels, xAxis, yAxis, initialArea, area, svg, bar;
+        tickLabels, xAxis, yAxis, svg, bar;
 
     // broadband adoption data
     data = [{"year":"1999", "amount": 30},
@@ -461,24 +461,24 @@ jQuery(function($){
 
 
   // cost chart
-  function costChart() {
+  function costReduceChart() {
     var data, margin, width, height, viewBox, parseDate, x, y,
-        tickLabels, xAxis, yAxis, initialArea, area, svg, bar;
+        tickLabels, xAxis, svg, bar;
 
     // broadband adoption data
     data = [{"year":"2000", "cost": 28.13},
             {"year":"2020", "cost": 0.64}];
 
     // dimensions
-    margin = {top: 20, right: 20, bottom: 60, left: 50};
-    width = 1140 - margin.left - margin.right;
+    margin = {top: 0, right: 0, bottom: 40, left: 0};
+    width = 690 - margin.left - margin.right;
     height = 500 - margin.top - margin.bottom;
     viewBox = "0 0 1140 500";
 
     parseDate = d3.time.format("%Y").parse;
 
     x = d3.scale.ordinal()
-        .rangeRoundBands([0, width], .05);
+        .rangeRoundBands([0, width], .025, 0);
 
     y = d3.scale.linear()
         .range([height, 0]);
@@ -487,18 +487,6 @@ jQuery(function($){
         .scale(x)
         .tickFormat(d3.time.format("%Y"))
         .orient("bottom");
-
-    yAxis = d3.svg.axis()
-        .scale(y)
-        .tickFormat(function(d,i) {
-          if (d == 0) {
-            return d;
-          }
-          else {
-            return d + "B";
-          }
-        })
-        .orient("left");
 
     svg = d3.select(".cost-chart").append("svg")
         .attr("preserveAspectRatio", "xMinYMin meet")
@@ -517,22 +505,7 @@ jQuery(function($){
     svg.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
-        .call(xAxis)
-      .append("text")
-        .attr("y", 40)
-        .attr("x", 540)
-        .attr("dy", ".71em")
-        .style("text-anchor", "end")
-        .text("Year");
-    svg.append("g")
-        .attr("class", "y axis")
-        .call(yAxis)
-      .append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", ".71em")
-        .style("text-anchor", "end")
-        .text("Amount (Dollars)");
+        .call(xAxis);
 
     // Bars
   bar = svg.selectAll(".cost-chart-bar")
