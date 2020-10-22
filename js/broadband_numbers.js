@@ -473,7 +473,7 @@ jQuery(function($){
     margin = {top: 0, right: 0, bottom: 40, left: 0};
     width = 690 - margin.left - margin.right;
     height = 500 - margin.top - margin.bottom;
-    viewBox = "0 0 1140 500";
+    viewBox = "0 0 690 500";
 
     parseDate = d3.time.format("%Y").parse;
 
@@ -513,15 +513,17 @@ jQuery(function($){
         .enter().append("rect")
         .attr("class", "cost-chart-bar")
         .attr("x", function(d) { return x(d.year); })
-        .attr("y", height)
+        .attr("y", height / 2)
         .attr("width", x.rangeBand())
-        .attr("height", 0);
+        .attr("height", height / 2);
 
   bar.transition()
-      .duration(3000)
-      .ease("linear")
+      .duration(2000)
+      .ease("quad-in-out")
       .attr("y", function(d) { return y(d.cost); })
       .attr("height", function(d) { return height - y(d.cost); });
+
+  $('.shape-wrap .box').addClass('full');
 
   }
 

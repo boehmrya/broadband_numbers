@@ -64,7 +64,8 @@ h2.section-title {
 }
 
 .wrap::after,
-.stats-section::after {
+.stats-section::after,
+.chart-section::after {
   content: "";
   clear: both;
   display: table;
@@ -231,6 +232,39 @@ h2.section-title {
   fill: #fff;
   font-size: 18px;
   font-weight: bold;
+}
+
+.shape-wrap .box {
+  width: 300px;
+  height: 0px;
+  transition: height 2s;
+  background: #5AC9E7;
+}
+
+.shape-wrap .box.full {
+  height: 350px;
+}
+
+.shape-wrap .down-arrow {
+  width: 0;
+  height: 0;
+  border-left: 150px solid transparent;
+  border-right: 150px solid transparent;
+  border-top: 150px solid #5AC9E7;
+}
+
+
+@media all and (min-width: 1200px) {
+  .section.cost .chart-wrap {
+    float: left;
+    width: 690px;
+    margin-right: 90px;
+  }
+
+  .section.cost .shape-wrap {
+    float: left;
+    width: 360px;
+  }
 }
 
 @media all and (min-width: 992px) and (max-width: 1199px) {
