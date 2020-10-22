@@ -470,7 +470,7 @@ jQuery(function($){
             {"year":"2020", "cost": 0.64}];
 
     // dimensions
-    margin = {top: 0, right: 0, bottom: 30, left: 0};
+    margin = {top: 0, right: 0, bottom: 50, left: 0};
     width = 690 - margin.left - margin.right;
     height = 500 - margin.top - margin.bottom;
     viewBox = "0 0 690 500";
@@ -486,6 +486,7 @@ jQuery(function($){
     xAxis = d3.svg.axis()
         .scale(x)
         .tickFormat(d3.time.format("%Y"))
+        .tickSize(0)
         .orient("bottom");
 
     svg = d3.select(".cost-chart").append("svg")
