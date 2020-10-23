@@ -294,7 +294,7 @@ h2.section-title {
 }
 
 .shape-wrap .box.full {
-  height: 325px;
+  height: 300px;
 }
 
 .shape-wrap .down-arrow {
@@ -303,6 +303,55 @@ h2.section-title {
   border-left: 150px solid transparent;
   border-right: 150px solid transparent;
   border-top: 150px solid #5AC9E7;
+}
+
+.section.paralax {
+  background: #000;
+  position: relative;
+  margin-bottom: 90px;
+}
+
+.section.paralax::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.5);
+  content: "";
+}
+
+.section.paralax .outer-wrap {
+  padding: 112.5px 0;
+  background-image: url('../images/globe.jpg');
+  background-size: cover!important;
+  background-attachment: fixed;
+  background-position: 50%;
+  background-repeat: no-repeat;
+}
+
+.section.paralax .outer-wrap .wrap {
+  padding-bottom: 0;
+}
+
+.section.wifi .stat-line {
+  color: #fff;
+  text-align: center;
+  position: relative;
+}
+
+.section.wifi .stat-line.one {
+  font-size: 2.5rem;
+  line-height: 2.5rem;
+  font-weight: bold;
+}
+
+.section.wifi .stat-line.two {
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  margin-top: 22.5px;
 }
 
 
