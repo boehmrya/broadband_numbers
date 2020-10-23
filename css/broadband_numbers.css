@@ -6,6 +6,10 @@ body {
   color: #343F49;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 path.state {
   cursor: pointer;
 }
@@ -71,23 +75,50 @@ h2.section-title {
   display: table;
 }
 
-.section-text {
-  font-size: 1.5rem;
-  line-height: 2rem;
+.stats-section {
+  margin-top: 90px;
 }
 
-.section-text p:last-child {
+.section-text,
+.chart-text {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  margin-top: 22.5px;
+}
+
+.section-text p:last-child,
+.chart-text p:last-child {
   margin-bottom: 0;
 }
 
-.stat-col {
-  float: left;
-  width: 48%;
-  text-align: center;
+.chart-text {
+  max-width: 800px;
 }
 
-.stat-col.one {
-  margin-right: 4%;
+.chart-text p,
+.section-text p {
+  margin-top: 0;
+}
+
+.section.speed .intro {
+  margin-bottom: 0;
+}
+
+.section.speed .chart-section {
+  position: relative;
+}
+
+.section.speed .chart-text {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.stat-col.three-col {
+  float: left;
+  width: 33%;
+  text-align: center;
+  padding: 0 15px;
 }
 
 .stat-wrap {
@@ -138,10 +169,6 @@ h2.section-title {
 
 .stat-source a:hover {
   color: #ccc;
-}
-
-.speed-chart {
-  margin-top: 22.5px;
 }
 
 .speed-chart .axis path,
