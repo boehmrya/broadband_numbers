@@ -7,6 +7,9 @@ jQuery(function($){
 
   function buildCharts() {
     // flags for whether charts have appeared
+    var sdChart = false;
+    var sdChartEl = $('.speed-chart');
+
     var adoptChart = false;
     var adoptChartEl = $('.adoption-chart');
 
@@ -34,6 +37,11 @@ jQuery(function($){
 
       // only run if we're not throttled
       if (!throttled) {
+        if (!sdChart && isInViewport(sdChartEl)) {
+          speedChart();
+          sdChart = true;
+        }
+
         if (!adoptChart && isInViewport(adoptChartEl)) {
           adoptionChart();
           adoptChart = true;
@@ -63,6 +71,251 @@ jQuery(function($){
         }, delay);
       }
     });
+  }
+
+  function speedChart() {
+
+    // Load in the data now...
+    d3.csv("../data/data.csv", function(error, data) {
+      var data, margin, width, height, viewBox, parseDate, x, y,
+          tickLabels, xAxis, yAxis, initialArea, area, svg, chartwidth;
+
+      //Get width of page
+      chartwidth = parseInt(d3.select(".speed-chart").style("width"));
+
+      // Set the margins
+      margin = {top: 20, right: 20, bottom: 40, left: 20},
+      width = chartwidth - margin.left - margin.right,
+      height = 600 - margin.top - margin.bottom;
+
+      parseDate = d3.time.format("%Y").parse;
+
+      // Setting up the scaling objects
+      var x = d3.time.scale()
+        .range([0, width]);
+
+      // Same for the y axis
+      var y = d3.scale.linear()
+        .range([height, 0]);
+
+    // Same for colour.
+    var color = d3.scale.category10();
+
+    tickLabels = ["2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2018"];
+
+    //Setting x-axis up here using x scaling object
+    var xAxis = d3.svg.axis()
+      .scale(x)
+      .tickFormat(function(d,i){ return tickLabels[i] })
+      .orient("bottom");
+
+    // Setting up a d3 line object - used to draw lines later
+    var line = d3.svg.line()
+      .x(function(d) { return x(d.date); })
+      .y(function(d) { return y(d.speed); });
+
+    // Now to actually make the chart area
+    var svg = d3.select(".speed-chart").append("svg")
+      .attr("class", "svgele")
+      .attr("id", "svgEle")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+     color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
+
+      // Take each row and put the date column through the parsedate form we've defined above.
+      data.forEach(function(d) {
+        d.date = parseDate(d.date);
+      });
+
+      // Building an object with all the data in it for each line
+      projections = color.domain().map(function(name) {
+        return {
+          name: name,
+          values: data.map(function(d) {
+                 return {date: d.date, speed: +d[name]};
+           })
+        };
+      });
+
+      // Set the domain of the x-value
+      x.domain(d3.extent(data, function(d) {
+        return d.date;
+      }));
+
+      // Do the same for the y-axis...[0,800000] by looking at the minimum and maximum for the speed variable.
+      y.domain([
+        d3.min(projections, function(c) { return d3.min(c.values, function(v) { return v.speed; }); }),
+        d3.max(projections, function(c) { return d3.max(c.values, function(v) { return v.speed; }); })
+      ]);
+
+      svg.append("path")
+
+      // Bind the x-axis to the svg object
+      svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+
+      //create proj
+      var proj = svg.selectAll(".proj")
+          .data(projections)
+          .enter()
+          .append("g")
+          .attr("class", "proj");
+
+      // Drawing the lines
+      proj.append("path")
+        .attr("class", "line")
+        .attr("id" , function(d, i) {
+          return "line" + i;
+        })
+        .attr("stroke-linecap","round")
+        .attr("d", function(d,i) {
+          return line(d.values);
+         })
+        .style("stroke", function(d,i) {
+          if (i < 12) {
+            return "#5ac8e7";
+          }
+          else if (i < 24) {
+            return "#E71B4F";
+          }
+          else {
+            return "#8c489a";
+          }
+        });
+
+       //Initially set the lines to not show
+       d3.selectAll(".line").style("opacity",0);
+       var chart = jQuery('.speed-chart');
+       var barwidth = (chartwidth - 120) / 9;
+
+       // 2007: 16 mbps
+       svg.append("text")
+         .attr("class", "speed num")
+         .attr("y", height - 40)
+         .attr("x", 4)
+         .text("16");
+
+       svg.append("text")
+         .attr("class", "speed label")
+         .attr("y", height - 20)
+         .attr("x", 0)
+         .text("MBPS");
+
+       // 2009: 50 mbps
+       svg.append("text")
+         .attr("class", "speed num")
+         .attr("y", height - 50)
+         .attr("x", (barwidth * 2))
+         .text("50");
+
+       svg.append("text")
+         .attr("class", "speed label")
+         .attr("y", height - 30)
+         .attr("x", (barwidth * 2) - 4)
+         .text("MBPS");
+
+       // 2011: 100 mbps
+       svg.append("text")
+         .attr("class", "speed num")
+         .attr("y", height - 80)
+         .attr("x", (barwidth * 4) + 12)
+         .text("100");
+
+       svg.append("text")
+         .attr("class", "speed label")
+         .attr("y", height - 60)
+         .attr("x", (barwidth * 4) + 18)
+         .text("MBPS");
+
+       // 2012: 305 mbps
+       svg.append("text")
+         .attr("class", "speed num")
+         .attr("y", height - 140)
+         .attr("x", (barwidth * 5) + 20)
+         .text("305")
+
+       svg.append("text")
+         .attr("class", "speed label")
+         .attr("y", height - 120)
+         .attr("x", (barwidth * 5) + 26)
+         .text("MBPS");
+
+       // 2013: 505 mbps
+       svg.append("text")
+         .attr("class", "speed num")
+         .attr("y", height - 200)
+         .attr("x", (barwidth * 6) + 30)
+         .text("505");
+
+       svg.append("text")
+         .attr("class", "speed label")
+         .attr("y", height - 180)
+         .attr("x", (barwidth * 6) + 36)
+         .text("MBPS");
+
+       // 2015: 1 GB
+       svg.append("text")
+         .attr("class", "speed num")
+         .attr("y", height - 340)
+         .attr("x", (barwidth * 8) + 40)
+         .text("1");
+
+       svg.append("text")
+         .attr("class", "speed label")
+         .attr("y", height - 320)
+         .attr("x", (barwidth * 8) + 30)
+         .text("GBPS");
+
+       // 2016: 2 GB
+       svg.append("text")
+         .attr("class", "speed num")
+         .attr("y", 25)
+         .attr("x", (barwidth * 9) + 10)
+         .text("2");
+
+       svg.append("text")
+         .attr("class", "speed label")
+         .attr("y", 45)
+         .attr("x", (barwidth * 9))
+         .text("GBPS");
+
+        //Select All of the lines and process them one by one
+   			d3.selectAll(".line").each(function(d,i) {
+
+           if (i < 24) {
+              d3.select(this).style("opacity","1");
+           }
+           else {
+              d3.select(this).style("opacity","0.7");
+           }
+
+   			  // Get the length of each line in turn
+   			  var totalLength = d3.select("#line" + i).node().getTotalLength();
+
+   				d3.selectAll("#line" + i)
+            .attr("stroke-dasharray", totalLength + " " + totalLength)
+   				  .attr("stroke-dashoffset", totalLength)
+   				  .transition()
+   				  .duration(2000)
+   				  .ease("linear") //Try linear, quad, bounce... see other examples here - http://bl.ocks.org/hunzy/9929724
+   				  .attr("stroke-dashoffset", 0)
+   				  .style("stroke-width",2);
+   			});
+
+       // reveal text
+       d3.selectAll("svg.svgele text.speed")
+         .transition()
+         .delay(1000)
+         .duration(3000)
+         .style("opacity", 1);
+
+     });
   }
 
 
