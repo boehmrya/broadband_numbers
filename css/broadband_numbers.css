@@ -63,7 +63,8 @@ h2.section-title {
   padding-top: 45px;
 }
 
-.intro-text {
+.intro-text,
+.intro .section-text {
   margin-top: 22.5px;
 }
 
@@ -428,7 +429,8 @@ h2.section-title {
   }
 
   .adoption-chart,
-  .customers-chart {
+  .customers-chart,
+  .cost-chart {
     min-height: 500px;
   }
 
