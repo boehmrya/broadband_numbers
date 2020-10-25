@@ -53,18 +53,18 @@ h2.section-title {
   background: #5AC9E7;
 }
 
-.intro {
-  margin-bottom: 45px;
-}
-
 .wrap {
   padding: 0px 15px 90px 15px;
-  width: 1140px;
+  width: 1170px;
   margin: 0 auto;
 }
 
 .content {
   padding-top: 45px;
+}
+
+.intro-text {
+  margin-top: 22.5px;
 }
 
 .wrap::after,
@@ -76,13 +76,28 @@ h2.section-title {
 }
 
 .stats-section {
+  margin-top: 22.5px;
+}
+
+.chart-section {
+  margin-top: 45px;
+}
+
+.section.speed .stats-section {
   margin-top: 90px;
+}
+
+.section.speed .chart-section {
+  margin-top: 0;
 }
 
 .section-text,
 .chart-text {
   font-size: 1.5rem;
   line-height: 2rem;
+}
+
+.chart-text {
   margin-top: 22.5px;
 }
 
@@ -92,12 +107,26 @@ h2.section-title {
 }
 
 .chart-text {
-  max-width: 800px;
+  max-width: 770px;
 }
 
 .chart-text p,
 .section-text p {
   margin-top: 0;
+}
+
+.stats-section .section-text {
+  float: left;
+  margin-right: 90px;
+  max-width: 770px;
+}
+
+.stat-col {
+  text-align: center;
+}
+
+.stats-section .stat-col.single {
+  float: left;
 }
 
 .section.speed .intro {
@@ -122,7 +151,7 @@ h2.section-title {
 }
 
 .stat-wrap {
-  max-width: 300px;
+  width: 280px;
   margin: 0 auto;
 }
 
@@ -394,6 +423,19 @@ h2.section-title {
 
 
 @media all and (min-width: 1200px) {
+  .speed-chart {
+    min-height: 600px;
+  }
+
+  .adoption-chart,
+  .customers-chart {
+    min-height: 500px;
+  }
+
+  .infrastructure-chart {
+    min-height: 600px;
+  }
+
   .section.cost .chart-wrap {
     float: left;
     width: 690px;

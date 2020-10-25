@@ -553,8 +553,8 @@ jQuery(function($){
     // dimensions
     margin = {top: 120, right: 20, bottom: 60, left: 50};
     width = 1140 - margin.left - margin.right;
-    height = 500 - margin.top - margin.bottom;
-    viewBox = "0 0 1140 500";
+    height = 600 - margin.top - margin.bottom;
+    viewBox = "0 0 1140 600";
 
     parseDate = d3.time.format("%Y").parse;
 
