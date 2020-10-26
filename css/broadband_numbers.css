@@ -578,6 +578,12 @@ h2.section-title {
   }
 }
 
+@media all and (min-width: 500px) and (max-width: 767px) {
+  .stat-wrap {
+    width: 320px;
+  }
+}
+
 @media all and (max-width: 991px) {
   .wrap {
     width: 100%;
@@ -613,6 +619,17 @@ h2.section-title {
   .section.cost .shape-wrap {
     display: none;
     visibility: hidden;
+  }
+
+  .stat-col.three-col {
+    float: none;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 45px;
+  }
+
+  .stat-col br {
+    display: none;
   }
 }
 
