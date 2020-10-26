@@ -332,7 +332,7 @@ jQuery(function($){
             {"year":"2020", "percent": 81}];
 
     // dimensions
-    margin = {top: 20, right: 20, bottom: 60, left: 60};
+    margin = {top: 20, right: 20, bottom: 80, left: 80};
     width = 1140 - margin.left - margin.right;
     height = 500 - margin.top - margin.bottom;
     viewBox = "0 0 1140 500";
@@ -350,8 +350,6 @@ jQuery(function($){
     xAxis = d3.svg.axis()
         .ticks(5)
         .scale(x)
-        .outerTickSize(0)
-        .innerTickSize(0)
         .tickFormat(function(d,i){ return tickLabels[i] })
         .orient("bottom");
 
@@ -393,9 +391,10 @@ jQuery(function($){
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis)
       .append("text")
-        .attr("y", 40)
+        .attr("y", 60)
         .attr("x", 540)
         .attr("dy", ".71em")
+        .attr("class", "axis-label")
         .style("text-anchor", "end")
         .text("Year");
     svg.append("g")
@@ -403,11 +402,12 @@ jQuery(function($){
         .call(yAxis)
       .append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", -60)
-        .attr("x", -75)
+        .attr("y", -80)
+        .attr("x", -90)
         .attr("dy", ".71em")
+        .attr("class", "axis-label")
         .style("text-anchor", "end")
-        .text("Percentage of American Households");
+        .text("Percentage of Households");
     svg.append("path")
         .datum(data)
         .attr("class", "area")
@@ -443,7 +443,7 @@ jQuery(function($){
             {"year":"2017", "customers": 66}];
 
     // dimensions
-    margin = {top: 20, right: 20, bottom: 60, left: 50};
+    margin = {top: 20, right: 20, bottom: 80, left: 80};
     width = 1140 - margin.left - margin.right;
     height = 500 - margin.top - margin.bottom;
     viewBox = "0 0 1140 500";
@@ -462,6 +462,8 @@ jQuery(function($){
 
     yAxis = d3.svg.axis()
         .scale(y)
+        .innerTickSize(-width)
+        .outerTickSize(0)
         .tickFormat(function(d,i) {
           if (d == 0) {
             return d;
@@ -500,9 +502,10 @@ jQuery(function($){
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis)
       .append("text")
-        .attr("y", 40)
+        .attr("y", 60)
         .attr("x", 540)
         .attr("dy", ".71em")
+        .attr("class", "axis-label")
         .style("text-anchor", "end")
         .text("Year");
     svg.append("g")
@@ -510,8 +513,10 @@ jQuery(function($){
         .call(yAxis)
       .append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", 6)
+        .attr("y", -80)
+        .attr("x", -120)
         .attr("dy", ".71em")
+        .attr("class", "axis-label")
         .style("text-anchor", "end")
         .text("Number of Customers");
     svg.append("path")
@@ -554,7 +559,7 @@ jQuery(function($){
             {"year":"2018", "amount": 290}];
 
     // dimensions
-    margin = {top: 120, right: 20, bottom: 60, left: 50};
+    margin = {top: 120, right: 20, bottom: 80, left: 80};
     width = 1140 - margin.left - margin.right;
     height = 600 - margin.top - margin.bottom;
     viewBox = "0 0 1140 600";
@@ -603,9 +608,10 @@ jQuery(function($){
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis)
       .append("text")
-        .attr("y", 40)
+        .attr("y", 60)
         .attr("x", 540)
         .attr("dy", ".71em")
+        .attr("class", "axis-label")
         .style("text-anchor", "end")
         .text("Year");
     svg.append("g")
@@ -613,8 +619,10 @@ jQuery(function($){
         .call(yAxis)
       .append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", 6)
+        .attr("y", -80)
+        .attr("x", -120)
         .attr("dy", ".71em")
+        .attr("class", "axis-label")
         .style("text-anchor", "end")
         .text("Amount (Dollars)");
 

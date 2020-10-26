@@ -323,12 +323,24 @@ h2.section-title {
   font-size: 1.5rem;
 }
 
-.adoption-chart .y.axis .tick text {
+.adoption-chart .y.axis .tick text,
+.customers-chart .y.axis .tick text {
   transform: translate(-5px, 0px);
 }
 
-.adoption-chart .x.axis .tick text {
+.adoption-chart .y.axis .tick:first-child text,
+.customers-chart .y.axis .tick:first-child text {
+  transform: translate(-5px, -5px);
+}
+
+.adoption-chart .x.axis .tick text,
+.customers-chart .x.axis .tick text {
   transform: translate(0px, 5px);
+}
+
+.adoption-chart .x.axis .tick:first-child text,
+.customers-chart .x.axis .tick:first-child text {
+  transform: translate(15px, 5px);
 }
 
 .shape-wrap .cost-arrow {
@@ -436,9 +448,14 @@ h2.section-title {
   opacity: 0;
 }
 
-.adoption-chart .tick line{
+.adoption-chart .y.axis .tick line,
+.customers-chart .y.axis .tick line {
   opacity: 0.2;
   stroke-dasharray: 3 3;
+}
+
+.axis-label {
+  font-size: 1.125rem;
 }
 
 
