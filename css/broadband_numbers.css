@@ -201,7 +201,7 @@ h2.section-title {
   color: #ccc;
 }
 
-.section.wifi .stat-source {
+.section.paralax .stat-source {
   text-align: center;
   color: #fff;
   position: relative;
@@ -415,23 +415,31 @@ h2.section-title {
   background-repeat: no-repeat;
 }
 
+.section.paralax.wifi .outer-wrap {
+  background-image: url('../images/globe.jpg');
+}
+
+.section.paralax.network .outer-wrap {
+  background-image: url('../images/earth.jpg');
+}
+
 .section.paralax .outer-wrap .wrap {
   padding-bottom: 0;
 }
 
-.section.wifi .stat-line {
+.section.paralax .stat-line {
   color: #fff;
   text-align: center;
   position: relative;
 }
 
-.section.wifi .stat-line.one {
+.section.paralax .stat-line.one {
   font-size: 2.5rem;
   line-height: 2.5rem;
   font-weight: bold;
 }
 
-.section.wifi .stat-line.two {
+.section.paralax .stat-line.two {
   font-size: 1.5rem;
   line-height: 1.5rem;
   margin-top: 22.5px;
