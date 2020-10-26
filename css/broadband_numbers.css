@@ -495,6 +495,13 @@ h2.section-title {
   .wrap {
     padding-bottom: 67.5px;
   }
+  .section.paralax .outer-wrap {
+    padding: 90px 0;
+  }
+  .shape-wrap .cost-percent-num {
+    font-size: 2.75rem;
+    line-height: 2.75rem;
+  }
 }
 
 @media all and (min-width: 992px) and (max-width: 1199px) {
@@ -535,16 +542,39 @@ h2.section-title {
     border-top: 125px solid #5AC9E7;
   }
 
-  .shape-wrap .cost-percent-num {
-    font-size: 2.75rem;
-    line-height: 2.75rem;
-  }
-
 }
 
 @media all and (min-width: 768px) and (max-width: 991px) {
   .wrap {
     width: 750px;
+  }
+
+  .section.cost .chart-wrap {
+    width: 65%;
+    margin-right: 5%;
+  }
+
+  .section.cost .shape-wrap {
+    width: 25%;
+    max-width: 200px;
+  }
+
+  .shape-wrap .box {
+    width: 200px;
+  }
+
+  .shape-wrap .box.full {
+    height: 200px;
+  }
+
+  .shape-wrap .down-arrow {
+    border-left: 100px solid transparent;
+    border-right: 100px solid transparent;
+    border-top: 100px solid #5AC9E7;
+  }
+
+  .stat-wrap {
+    width: auto;
   }
 }
 
@@ -562,6 +592,28 @@ h2.section-title {
     font-size: 2rem;
     line-height: 2.25rem;
   }
+
+  .section.paralax .stat-line.one {
+    font-size: 2rem;
+    line-height: 2.25rem;
+  }
+
+  .stat-num {
+    font-size: 3.5rem;
+    line-height: 2.75rem;
+  }
+}
+
+@media all and (max-width: 767px) {
+  .section.cost .chart-wrap {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .section.cost .shape-wrap {
+    display: none;
+    visibility: hidden;
+  }
 }
 
 @media all and (max-width: 599px) {
@@ -573,5 +625,9 @@ h2.section-title {
 @media all and (max-width: 499px) {
   .wrap {
     padding-bottom: 45px;
+  }
+
+  .section.paralax .outer-wrap {
+    padding: 67.5px 0;
   }
 }
