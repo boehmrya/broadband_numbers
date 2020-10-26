@@ -332,7 +332,7 @@ jQuery(function($){
             {"year":"2020", "percent": 81}];
 
     // dimensions
-    margin = {top: 20, right: 20, bottom: 60, left: 50};
+    margin = {top: 20, right: 20, bottom: 60, left: 60};
     width = 1140 - margin.left - margin.right;
     height = 500 - margin.top - margin.bottom;
     viewBox = "0 0 1140 500";
@@ -350,11 +350,15 @@ jQuery(function($){
     xAxis = d3.svg.axis()
         .ticks(5)
         .scale(x)
+        .outerTickSize(0)
+        .innerTickSize(0)
         .tickFormat(function(d,i){ return tickLabels[i] })
         .orient("bottom");
 
     yAxis = d3.svg.axis()
         .scale(y)
+        .innerTickSize(-width)
+        .outerTickSize(0)
         .orient("left");
 
     initialArea = d3.svg.area()
@@ -371,8 +375,6 @@ jQuery(function($){
     svg = d3.select(".adoption-chart").append("svg")
         .attr("preserveAspectRatio", "xMinYMin meet")
         .attr("viewBox", viewBox)
-        //.attr("width", width + margin.left + margin.right)
-        //.attr("height", height + margin.top + margin.bottom)
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -401,10 +403,11 @@ jQuery(function($){
         .call(yAxis)
       .append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", 6)
+        .attr("y", -60)
+        .attr("x", -75)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("Percent of Households");
+        .text("Percentage of American Households");
     svg.append("path")
         .datum(data)
         .attr("class", "area")

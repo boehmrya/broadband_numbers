@@ -201,6 +201,12 @@ h2.section-title {
   color: #ccc;
 }
 
+.section.wifi .stat-source {
+  text-align: center;
+  color: #fff;
+  position: relative;
+}
+
 .speed-chart .axis path,
 .speed-chart .axis line,
 .customers-chart .axis path,
@@ -317,6 +323,14 @@ h2.section-title {
   font-size: 1.5rem;
 }
 
+.adoption-chart .y.axis .tick text {
+  transform: translate(-5px, 0px);
+}
+
+.adoption-chart .x.axis .tick text {
+  transform: translate(0px, 5px);
+}
+
 .shape-wrap .cost-arrow {
   position: relative;
 }
@@ -420,6 +434,11 @@ h2.section-title {
 .section.speed text.speed.label {
   font-size: 16px;
   opacity: 0;
+}
+
+.adoption-chart .tick line{
+  opacity: 0.2;
+  stroke-dasharray: 3 3;
 }
 
 
