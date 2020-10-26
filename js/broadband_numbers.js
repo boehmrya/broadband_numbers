@@ -81,12 +81,14 @@ jQuery(function($){
           tickLabels, xAxis, yAxis, initialArea, area, svg, chartwidth;
 
       //Get width of page
-      chartwidth = parseInt(d3.select(".speed-chart").style("width"));
+      //chartwidth = parseInt(d3.select(".speed-chart").style("width"));
+      chartwidth = 1140;
 
       // Set the margins
       margin = {top: 20, right: 20, bottom: 40, left: 20},
       width = chartwidth - margin.left - margin.right,
       height = 600 - margin.top - margin.bottom;
+      viewBox = "0 0 1140 600";
 
       parseDate = d3.time.format("%Y").parse;
 
@@ -118,8 +120,10 @@ jQuery(function($){
     var svg = d3.select(".speed-chart").append("svg")
       .attr("class", "svgele")
       .attr("id", "svgEle")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
+      .attr("preserveAspectRatio", "xMinYMin meet")
+      .attr("viewBox", viewBox)
+      //.attr("width", width + margin.left + margin.right)
+      //.attr("height", height + margin.top + margin.bottom)
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
